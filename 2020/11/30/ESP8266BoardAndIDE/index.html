@@ -1,0 +1,318 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ESP8266BoardAndIDE - WJ&#39;s Blog</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  
+  <meta name="description" content="ESP8266开发板介绍和IDE1. ESP8266开...">
+  <meta name="author" content="Jarvis Wang">
+  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_s6x2xcokxrl.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: false,
+        alipay: '',
+        wechat: ''
+      },
+      galleries: {
+        enable: false
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '/images/theme/welcome-image.jpg',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          api: 'https://v1.hitokoto.cn/?encode=text&c=d'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'url',
+        image: '',
+      },
+      toc: {
+        enable: true
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+
+
+  <nav class="navbar">
+    <div class="left">
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+    </div>
+    <div class="center">ESP8266BoardAndIDE</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+
+<nav class="menu">
+  <div class="menu-wrap">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/ESP8266/ " class="underline "> ESP8266</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="/images/theme/post-image.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">ESP8266BoardAndIDE</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>十一月 30, 2020</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>366</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <h1 id="ESP8266开发板介绍和IDE"><a href="#ESP8266开发板介绍和IDE" class="headerlink" title="ESP8266开发板介绍和IDE"></a>ESP8266开发板介绍和IDE</h1><h2 id="1-ESP8266开发板"><a href="#1-ESP8266开发板" class="headerlink" title="1. ESP8266开发板"></a>1. ESP8266开发板</h2><p><img    class="lazyload" data-original="http://www.taichi-maker.com/wp-content/uploads/2016/12/esp8266_devkit_horizontal-01.png" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="   ><span class="image-caption">Board</span></p>
+<table>
+<thead>
+<tr>
+<th>Pin</th>
+<th>Code</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>D0~D8</td>
+<td>D0~D8</td>
+<td>数字引脚</td>
+</tr>
+<tr>
+<td>LED</td>
+<td>D2</td>
+<td>板载LED</td>
+</tr>
+</tbody></table>
+<h2 id="2-IDE安装"><a href="#2-IDE安装" class="headerlink" title="2. IDE安装"></a>2. IDE安装</h2><h3 id="CH340G驱动下载"><a href="#CH340G驱动下载" class="headerlink" title="CH340G驱动下载"></a><a href="">CH340G驱动下载</a></h3><h3 id="Arduino下载"><a href="#Arduino下载" class="headerlink" title="Arduino下载"></a><a target="_blank" rel="noopener" href="https://www.arduino.cc/en/software">Arduino下载</a></h3><p>安装完成后打开Arduion软件<br>文件-首选项-附加开发板管理网址:<br><code>https://arduino.esp8266.com/stable/package_esp8266com_index.json</code><br>工具-开发板-开发板管理: <code>搜索并安装esp8266</code><br>工具-开发板-NodeMCU 1.0 (ESP-12E Module) <code>和手上的开发板对应</code><br>工具-端口: <code>选择对应的串口(如 COM3 等)</code></p>
+<h2 id="3-测试环境"><a href="#3-测试环境" class="headerlink" title="3. 测试环境"></a>3. 测试环境</h2><p>文件-示例-01.Basics-Blink: 选择示例程序并上传至开发板<br>现象: <code>开发板板载LED灯闪烁</code></p>
+
+      </section>
+      <section class="extra">
+        
+        
+        0
+        
+      </section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ESP8266%E5%BC%80%E5%8F%91%E6%9D%BF%E4%BB%8B%E7%BB%8D%E5%92%8CIDE"><span class="toc-text">ESP8266开发板介绍和IDE</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-ESP8266%E5%BC%80%E5%8F%91%E6%9D%BF"><span class="toc-text">1. ESP8266开发板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-IDE%E5%AE%89%E8%A3%85"><span class="toc-text">2. IDE安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CH340G%E9%A9%B1%E5%8A%A8%E4%B8%8B%E8%BD%BD"><span class="toc-text">CH340G驱动下载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Arduino%E4%B8%8B%E8%BD%BD"><span class="toc-text">Arduino下载</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83"><span class="toc-text">3. 测试环境</span></a></li></ol></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="https://github.com/Jarvis-WJ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:wj446071814@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
