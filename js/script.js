@@ -87,16 +87,20 @@ console.log("%c Github %c", "background:#333333; color:#ffffff", "", "https://gi
       },
     },
     motto: function () {
-      if (CONFIG.preview.motto.api) {
-        $.get(CONFIG.preview.motto.api, function (data) {
-          data && $("#motto").text(data);
-        });
-      }
+      if (!CONFIG.preview.motto.api) return;
+      var data_contents = CONFIG.preview.motto.data_contents && JSON.parse(CONFIG.preview.motto.data_contents);
+      $.get(CONFIG.preview.motto.api, function (result) {
+        if (data_contents.length > 0) {
+          data_contents.forEach(function (item) {
+            result = result[item];
+          });
+        }
+        result && $("#motto").text(result);
+      });
     },
     background: function () {
-      if (CONFIG.preview.background.api) {
-        $(".preview-image").css("background-image", "url(" + CONFIG.preview.background.api + ")");
-      }
+      if (!CONFIG.preview.background.api) return;
+      $(".preview-image").css("background-image", "url(" + CONFIG.preview.background.api + ")");
     }
   }
 
@@ -256,6 +260,46 @@ console.log("%c Github %c", "background:#333333; color:#ffffff", "", "https://gi
         $(".toc-link[href='#" + current[1] + "']").addClass("active");
       };
       f();
+    },
+    scrollbar: function () {
+      var totalH = $(document).height();
+      var clientH = $(window).height();
+      $(window).on("scroll", f);
+      function f() {
+        var validH = totalH - clientH;
+        var scrollH = $(document).scrollTop();
+        var height = scrollH / validH * 100;
+        $(".j-scrollbar-current").css("height", height + '%');
+      }
+      f();
+      $(".j-scrollbar").mousedown(function (e) {
+        var scrollH = e.offsetY * totalH / 100;
+        $("html,body").animate({ scrollTop: scrollH }, 300);
+        $(document).mousemove(function (e) {
+          var scrollH = (1 - ((clientH - e.clientY) / clientH)) * totalH;
+          $("html,body").scrollTop(scrollH);
+          $("html,body").css({ "user-select": "none", "cursor": "move" });
+        });
+        $(document).mouseup(function () {
+          $(document).off('mousemove');
+          $("html,body").css({ "user-select": "auto", "cursor": "default" });
+        });
+      });
+    },
+    notification: function () {
+      if (!CONFIG.notification.list) return;
+      var page_white_list = CONFIG.notification.page_white_list && JSON.parse(CONFIG.notification.page_white_list);
+      var page_black_list = CONFIG.notification.page_black_list && JSON.parse(CONFIG.notification.page_black_list);
+      var path = window.location.pathname;
+      if ((page_white_list && page_white_list.indexOf(path) < 0) || (page_black_list && page_black_list.indexOf(path) >= 0)) return;
+      var delay = CONFIG.notification.delay;
+      var list = JSON.parse(CONFIG.notification.list);
+      var playList = list.filter(function (item) {
+        return item.enable && ZHAOO.utils.isDuringDate(item.startTime, item.endTime) && item;
+      });
+      playList.forEach(function (item) {
+        ZHAOO.zui.notification({ title: item.title, content: item.content, delay: delay });
+      });
     }
   }
 
@@ -275,6 +319,8 @@ console.log("%c Github %c", "background:#333333; color:#ffffff", "", "https://gi
     CONFIG.carrier.enable && action.carrier();
     CONFIG.qrcode.enable && action.qrcode();
     CONFIG.toc.enable && action.toc();
+    CONFIG.scrollbar.type === 'simple' && action.scrollbar();
+    CONFIG.notification.enable && action.notification();
   });
 
 })(jQuery);

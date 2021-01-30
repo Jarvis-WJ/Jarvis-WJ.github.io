@@ -11,17 +11,17 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="google" content="notranslate" />
   
-  
+  <meta name="description" content="abcdefghijklmnopqrstuvwxyz">
   <meta name="author" content="Jarvis Wang">
-  <link rel="icon" href="/images/icons/favicon-16x16.png" type="image/png" sizes="16x16">
-  <link rel="icon" href="/images/icons/favicon-32x32.png" type="image/png" sizes="32x32">
-  <link rel="apple-touch-icon" href="/images/icons/apple-touch-icon.png" sizes="180x180">
-  <meta rel="mask-icon" href="/images/icons/stun-logo.svg" color="#333333">
+  <link rel="icon" href="/images/icons/favicon-29x29.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-58x58.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/favicon-144x144.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/favicon-58x58.svg" color="#333333">
   
     <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
     <meta rel="msapplication-TileColor" content="#000000">
   
-  
+
   
 <link rel="stylesheet" href="/css/style.css">
 
@@ -71,7 +71,7 @@
         wechat: ''
       },
       galleries: {
-        enable: false
+        enable: true
       },
       fab: {
         enable: true,
@@ -86,11 +86,12 @@
       preview: {
         background: {
           default: '/images/theme/welcome-image.jpg',
-          api: ''
+          api: 'https://source.unsplash.com/random/1920x1080'
         },
         motto: {
-          default: '我在开了灯的床头下，想问问自己的心啊。',
-          api: 'https://v1.hitokoto.cn/?encode=text&c=d'
+          default: '这个城市天生就适合恋爱, 你天生就适合我的灵魂。',
+          api: 'https://v2.jinrishici.com/one.json',
+          data_contents: '["data","content"]'
         },
       },
       qrcode: {
@@ -100,6 +101,16 @@
       },
       toc: {
         enable: true
+      },
+      scrollbar: {
+        type: 'simple'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
       }
     }
   </script>
@@ -109,6 +120,7 @@
   
 
 <meta name="generator" content="Hexo 5.2.0"></head>
+
 <body class="lock-screen">
   <div class="loading"></div>
   
@@ -142,7 +154,13 @@
     <ul class="menu-content"><li class="menu-item">
         <a href="/ " class="underline "> 首页</a>
       </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 相册</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
         <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
       </li><li class="menu-item">
         <a href="/about/ " class="underline active"> 关于</a>
       </li></ul>
@@ -178,6 +196,39 @@
         
         
       </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "IHs6WMz89hhf0Ganevb4XYcL-gzGzoHsz",
+        app_key: "cBNSmANheKHNbjRKw1lwudsh",
+        placeholder: "来都来了, 不写点什么?",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
       
     </section>
   </div>
@@ -223,6 +274,11 @@
   </div>
   
   
+    <div class="scrollbar j-scrollbar">
+  <div class="scrollbar-current j-scrollbar-current"></div>
+</div>
+  
+  
     
 <script src="/js/color-mode.js"></script>
 
@@ -255,6 +311,8 @@
 
 <script src="/js/utils.js"></script>
 <script src="/js/script.js"></script>
+
+
 
 
 
