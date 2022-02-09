@@ -1,0 +1,398 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ESP8266+红外接收 - WJ&#39;s Blog</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  
+  <meta name="description" content="型号HX1838遥控模块套件(遥控器+接收器)
+相关参...">
+  <meta name="author" content="Jarvis Wang">
+  <link rel="icon" href="/images/icons/favicon-29x29.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-58x58.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/favicon-144x144.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/favicon-58x58.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_s6x2xcokxrl.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: false,
+        alipay: '',
+        wechat: ''
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '[object Object]',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          typing: true,
+          api: 'https://v2.jinrishici.com/one.json',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'url',
+        image: '',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+
+
+  <nav class="navbar" style="">
+    <div class="left">
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+    </div>
+    <div class="center">ESP8266+红外接收</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+
+<nav class="menu">
+  <div class="menu-wrap">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 相册</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="https://image.pushauction.com/0/0/f37477f9-6aaa-4217-9548-c36e3e397539/eb7357ab-4e5e-41ff-a290-9074bbb410d7.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">ESP8266+红外接收</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>三月 27, 2021</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>2409</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <h2 id="型号"><a href="#型号" class="headerlink" title="型号"></a>型号</h2><p>HX1838遥控模块套件(遥控器+接收器)</p>
+<h2 id="相关参数"><a href="#相关参数" class="headerlink" title="相关参数"></a>相关参数</h2><ol>
+<li>工作电压: 3.3 - 5 V</li>
+<li>遥控距离: 8 米</li>
+<li>有效角度: 60 度</li>
+<li>红外波长: 940 nm</li>
+<li>晶振频率: 455 KHz</li>
+<li>载波频率: 38 KHz</li>
+<li>编码格式: NEC</li>
+<li>规格尺寸: 86 * 40 * 6 mm</li>
+<li>静态电流: 3 - 5 uA</li>
+<li>动态电流: 3 - 5 mA</li>
+<li>串联阻值: 1K</li>
+</ol>
+<h2 id="模块引脚"><a href="#模块引脚" class="headerlink" title="模块引脚"></a>模块引脚</h2><table>
+<thead>
+<tr>
+<th>引脚标识</th>
+<th>连接位置</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-</td>
+<td>GND</td>
+<td></td>
+</tr>
+<tr>
+<td>+</td>
+<td>VCC</td>
+<td>3.3 - 5 V</td>
+</tr>
+<tr>
+<td>无标识</td>
+<td>D0</td>
+<td>信号输出</td>
+</tr>
+</tbody></table>
+<h2 id="函数库"><a href="#函数库" class="headerlink" title="函数库"></a>函数库</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">// https://github.com/crankyoldgit/IRremoteESP8266</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;IRremoteESP8266.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;IRrecv.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;IRutils.h&gt;</span></span><br><br>--IRremoteESP8266库<br>  --decode_results results  <span class="hljs-comment">// 红外信息储存</span><br>    --value  <span class="hljs-comment">// 指令信息; &amp;eg: Serial.println(results.value, HEX)</span><br>  --IRrecv类: <span class="hljs-function">IRrecv <span class="hljs-title">irrecv</span><span class="hljs-params">(RECV_PIN)</span></span><br>    --enableIRIn()  // 启动接收模式; &lt;setup&gt;<br>    --decode(&lt;&amp;results&gt;)  <span class="hljs-comment">// 解码接收到的信息</span><br>    --resume()  <span class="hljs-comment">// 继续接收红外指令</span><br>  --IRsend类: <span class="hljs-function">IRsend <span class="hljs-title">irsend</span><span class="hljs-params">(SEND_PIN)</span></span><br>    --sendNEC(unsigned long data, int nbits)<br>    --sendSony(<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> data, <span class="hljs-keyword">int</span> nbits)<br>    --sendRC5(<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> data, <span class="hljs-keyword">int</span> nbits)<br>    --sendRC6(<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> data, <span class="hljs-keyword">int</span> nbits)<br>    --sendDISH(<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> data, <span class="hljs-keyword">int</span> nbits)<br>    --sendSharp(<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> data, <span class="hljs-keyword">int</span> nbits)<br>    --sendPanasonic(<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> address, <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> data)<br>    --sendJVC(<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> data, <span class="hljs-keyword">int</span> nbits, <span class="hljs-keyword">int</span> repeat)<br>    --sendRaw(<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> buf[], <span class="hljs-keyword">int</span> len, <span class="hljs-keyword">int</span> hz)<br></code></pre></td></tr></table></figure>
+
+<h2 id="示例程序"><a href="#示例程序" class="headerlink" title="示例程序"></a>示例程序</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;IRremoteESP8266.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;IRrecv.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;IRutils.h&gt;</span></span><br><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span>  RECV_PIN D1  <span class="hljs-comment">// 信号输出引脚连接</span></span><br> <br><span class="hljs-function">IRrecv <span class="hljs-title">irrecv</span><span class="hljs-params">(RECV_PIN)</span></span>;  <span class="hljs-comment">// 红外遥控初始化</span><br>decode_results results;  <span class="hljs-comment">// 储存接收到的红外遥控信息</span><br> <br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setup</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>  Serial.begin(<span class="hljs-number">9600</span>);<br>  pinMode(LED_BUILTIN, OUTPUT);<br>  digitalWrite(LED_BUILTIN, HIGH);<br>  Serial.println(<span class="hljs-string">&quot;Enabling IRin&quot;</span>);<br>  irrecv.enableIRIn();<br>  Serial.println(<span class="hljs-string">&quot;Enabled IRin&quot;</span>);<br>&#125;<br> <br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">loop</span><span class="hljs-params">()</span> </span>&#123;<br>  <span class="hljs-comment">/* </span><br><span class="hljs-comment">  decode()库函数用于判断红外接收器所接收到的红外信号是否可以被解析。</span><br><span class="hljs-comment">  如可以成功解析，则返回非零数值。并将解析结果存储于results中。</span><br><span class="hljs-comment">  如无法成功解析，则返回零。</span><br><span class="hljs-comment">  </span><br><span class="hljs-comment">  每一次解析完成，都需要调用resume()函数从而让Arduino开始准备接收下一个红外</span><br><span class="hljs-comment">  遥控指令。</span><br><span class="hljs-comment">  长按效果: FFFFFFFFFFFFFFFF</span><br><span class="hljs-comment">  1:  FFA25D</span><br><span class="hljs-comment">  2:  FF629D</span><br><span class="hljs-comment">  3:  FFE21D</span><br><span class="hljs-comment">  4:  FF22DD</span><br><span class="hljs-comment">  5:  FF02FD</span><br><span class="hljs-comment">  6:  FFC23D</span><br><span class="hljs-comment">  7:  FFE01F</span><br><span class="hljs-comment">  8:  FFA857</span><br><span class="hljs-comment">  9:  FF906F</span><br><span class="hljs-comment">  0:  FF9867</span><br><span class="hljs-comment">  *:  FF6897</span><br><span class="hljs-comment">  #:  FFB04F</span><br><span class="hljs-comment">  left:  FF10EF</span><br><span class="hljs-comment">  right: FF5AA5</span><br><span class="hljs-comment">  up:    FF18E7</span><br><span class="hljs-comment">  down:  FF4AB5</span><br><span class="hljs-comment">  OK:    FF38C7</span><br><span class="hljs-comment">  */</span><br>  <span class="hljs-keyword">if</span> (irrecv.decode(&amp;results)) &#123;<br>    serialPrintUint64(results.value, HEX);<br>    Serial.print(<span class="hljs-string">&#x27;\n&#x27;</span>);<br>    <br>    <span class="hljs-keyword">if</span>(results.value == <span class="hljs-number">0xFF38C7</span>)<br>    &#123;<br>        digitalWrite(LED_BUILTIN, !digitalRead(LED_BUILTIN));<br>    &#125;<br>    <br>    irrecv.resume(); <span class="hljs-comment">// 恢复接收下一个红外遥控信号</span><br>  &#125; <br>  delay(<span class="hljs-number">100</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+      </section>
+      <section class="extra">
+        
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/esp8266/" rel="tag">esp8266</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BA%A2%E5%A4%96/" rel="tag">红外</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a href="/posts/d7b2eea1.html"><i class="iconfont iconleft"></i>ESP8266+步进电机</a>
+    <a href="/posts/cb310e24.html">Arduino 环境安装<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "IHs6WMz89hhf0Ganevb4XYcL-gzGzoHsz",
+        app_key: "cBNSmANheKHNbjRKw1lwudsh",
+        placeholder: "来都来了, 不写点什么?",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9E%8B%E5%8F%B7"><span class="toc-text">型号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E5%8F%82%E6%95%B0"><span class="toc-text">相关参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E5%BC%95%E8%84%9A"><span class="toc-text">模块引脚</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%BA%93"><span class="toc-text">函数库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B%E7%A8%8B%E5%BA%8F"><span class="toc-text">示例程序</span></a></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="https://github.com/Jarvis-WJ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:wj446071814@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

@@ -1,0 +1,400 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ESP8266+步进电机 - WJ&#39;s Blog</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  
+  <meta name="description" content="型号28YBJ-48步进电机+ULN2003驱动模块
+...">
+  <meta name="author" content="Jarvis Wang">
+  <link rel="icon" href="/images/icons/favicon-29x29.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-58x58.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/favicon-144x144.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/favicon-58x58.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_s6x2xcokxrl.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: false,
+        alipay: '',
+        wechat: ''
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '[object Object]',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          typing: true,
+          api: 'https://v2.jinrishici.com/one.json',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'url',
+        image: '',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+
+
+  <nav class="navbar" style="">
+    <div class="left">
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+    </div>
+    <div class="center">ESP8266+步进电机</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+
+<nav class="menu">
+  <div class="menu-wrap">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 相册</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="https://www.makerguides.com/wp-content/uploads/2019/04/28byj-48-stepper-motor-with-uln2003-driver-and-arduino-tutorial-1.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">ESP8266+步进电机</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>三月 27, 2021</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>4733</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <h2 id="型号"><a href="#型号" class="headerlink" title="型号"></a>型号</h2><p>28YBJ-48步进电机+ULN2003驱动模块</p>
+<h2 id="相关参数"><a href="#相关参数" class="headerlink" title="相关参数"></a>相关参数</h2><ol>
+<li>工作电压: 5V</li>
+<li>型号详解:<br>28: 步进电机有效最大外径28 mm<br>Y:  永磁式<br>B:  电机类型为步进电机<br>J:  减速型(减速比1:64)<br>48: 四相八拍</li>
+<li>内部输出轴旋转一周步数: 32</li>
+<li>减速比: 64</li>
+</ol>
+<h2 id="模块引脚"><a href="#模块引脚" class="headerlink" title="模块引脚"></a>模块引脚</h2><table>
+<thead>
+<tr>
+<th>引脚标识</th>
+<th>连接位置</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GND</td>
+<td>GND</td>
+<td></td>
+</tr>
+<tr>
+<td>VCC</td>
+<td>VCC</td>
+<td>5 V</td>
+</tr>
+<tr>
+<td>(-)</td>
+<td>短接</td>
+<td>驱动开关</td>
+</tr>
+<tr>
+<td>IN*</td>
+<td>IO</td>
+<td>电机对应1-4口</td>
+</tr>
+</tbody></table>
+<h2 id="函数库"><a href="#函数库" class="headerlink" title="函数库"></a>函数库</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">// 官方库</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;Stepper.h&gt;</span></span><br><span class="hljs-comment">// 第三方库</span><br><span class="hljs-comment">// http://www.airspayce.com/mikem/arduino/AccelStepper/index.html</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;AccelStepper.h&quot;</span></span><br><br>--AccelStepper库<br>  --<span class="hljs-function">AccelStepper <span class="hljs-title">stepper</span><span class="hljs-params">(<span class="hljs-number">4</span>, IN1, IN3, IN2, IN4)</span>  <span class="hljs-comment">// 4-全步进参数; 8-半步进参数</span></span><br>    --setMaxSpeed(500.0)  // 设置最大速度<br>    --setAcceleration(<span class="hljs-number">50.0</span>)  <span class="hljs-comment">// 设置加速度</span><br>    --setSpeed(data)  <span class="hljs-comment">// 设置电机速度(+:逆时针, -:顺时针, 0:停止)</span><br>    --move(data)  <span class="hljs-comment">// 使电机运行data步; 不阻塞程序</span><br>    --moveTo(data)  <span class="hljs-comment">// 使电机运行至指定坐标位置; 不阻塞程序</span><br>    --currentPosition()  <span class="hljs-comment">// 获取电机输出轴位置</span><br>    --targetPosition()  <span class="hljs-comment">// 获取电机运行目标位置</span><br>    --setCurrentPosition(data)  <span class="hljs-comment">// 设置当前位置为用户指定位置值</span><br>    --runToNewPosition(data)  <span class="hljs-comment">// 使电机运行到用户指定位置值</span><br>    --run()  <span class="hljs-comment">// 运行电机(先加速后减速)</span><br>    --runSpeed()  <span class="hljs-comment">// 运行电机(匀速)</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="示例程序"><a href="#示例程序" class="headerlink" title="示例程序"></a>示例程序</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">// 定速转动</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;AccelStepper.h&quot;</span></span><br> <br><span class="hljs-comment">// 电机步进方式定义</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> FULLSTEP 4  <span class="hljs-comment">//全步进参数</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> HALFSTEP 8  <span class="hljs-comment">//半步进参数</span></span><br> <br><span class="hljs-comment">// 定义步进电机引脚 </span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> motor1Pin1  D5</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> motor1Pin2  D6</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> motor1Pin3  D7</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> motor1Pin4  D8</span><br><br><span class="hljs-comment">// 定义中ULN2003驱动板引脚顺序为 in1-in3-in2-in4</span><br><span class="hljs-function">AccelStepper <span class="hljs-title">stepper</span><span class="hljs-params">(FULLSTEP, motor1Pin1, motor1Pin3, motor1Pin2, motor1Pin4)</span></span>;<br><span class="hljs-keyword">int</span> steps = <span class="hljs-number">2048</span>;<br> <br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setup</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>  Serial.begin(<span class="hljs-number">9600</span>);<br>  stepper.setMaxSpeed(<span class="hljs-number">500</span>);   <span class="hljs-comment">// 设置电机最大速度为500</span><br>  stepper.setSpeed(<span class="hljs-number">300</span>);      <span class="hljs-comment">// 初始化电机速度为300</span><br>&#125;<br> <br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">loop</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;  <br>   stepper.runSpeed();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">// 控制转动方式</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&quot;AccelStepper.h&quot;</span></span><br><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> FULLSTEP 4  <span class="hljs-comment">//全步进参数</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> HALFSTEP 8  <span class="hljs-comment">//半步进参数</span></span><br> <br><span class="hljs-comment">// 定义步进电机引脚 </span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> motor1Pin1  D5</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> motor1Pin2  D6</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> motor1Pin3  D7</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> motor1Pin4  D8</span><br> <br><span class="hljs-function">AccelStepper <span class="hljs-title">stepper</span><span class="hljs-params">(FULLSTEP, motor1Pin1, motor1Pin3, motor1Pin2, motor1Pin4)</span></span>;<br><span class="hljs-keyword">char</span> cmd;        <span class="hljs-comment">//电机指令字符</span><br><span class="hljs-keyword">int</span> data;        <span class="hljs-comment">//电机指令参数</span><br><span class="hljs-keyword">int</span> stepperNum;  <span class="hljs-comment">//控制电机编号</span><br> <br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setup</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>  stepper.setMaxSpeed(<span class="hljs-number">500.0</span>);<br>  stepper.setAcceleration(<span class="hljs-number">50.0</span>);<br> <br>  Serial.begin(<span class="hljs-number">9600</span>);  <br>  Serial.println(F(<span class="hljs-string">&quot;&quot;</span>));  <br>  Serial.println(F(<span class="hljs-string">&quot;Please input motor command:&quot;</span>));   <br>&#125;<br> <br> <br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">loop</span><span class="hljs-params">()</span></span>&#123;<br>  <span class="hljs-keyword">if</span> (Serial.available()) &#123;     <span class="hljs-comment">// 检查串口缓存是否有数据等待传输 </span><br>    cmd = Serial.read();        <span class="hljs-comment">// 获取电机指令中指令信息    </span><br>    Serial.print(F(<span class="hljs-string">&quot;cmd = &quot;</span>));<br>    Serial.print(cmd);    <br>    Serial.print(F(<span class="hljs-string">&quot; , &quot;</span>)); <br>    <br>    data = Serial.parseInt();   <span class="hljs-comment">// 获取电机指令中参数信息  </span><br>    Serial.print(F(<span class="hljs-string">&quot;data = &quot;</span>));<br>    Serial.print(data);   <br>    Serial.println(F(<span class="hljs-string">&quot;&quot;</span>));    <br>    <br>    runUsrCmd();<br>  &#125;<br> <br>  stepper.run();<br>&#125;<br> <br> <br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">runUsrCmd</span><span class="hljs-params">()</span></span>&#123;<br>  <span class="hljs-keyword">switch</span>(cmd)&#123; <br>    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;o&#x27;</span>: <span class="hljs-comment">//利用currentPosition获取当前电机输出轴位置并通过串口监视器输出该信息</span><br>      Serial.print(F(<span class="hljs-string">&quot;stepper Position: &quot;</span>)); <br>      Serial.println(stepper.currentPosition());<br>      <span class="hljs-keyword">break</span>;    <br>           <br>    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;v&#x27;</span>: <span class="hljs-comment">//利用moveTo函数使电机运行到用户指定坐标位置，moveTo函数不会“block”程序。</span><br>      Serial.print(F(<span class="hljs-string">&quot;Motor &#x27;moveTo&#x27; &quot;</span>));<br>      Serial.println(data); <br>      stepper.moveTo(data);<br>      <span class="hljs-keyword">break</span>;<br>      <br>    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;m&#x27;</span>:   <span class="hljs-comment">// 利用move函数使电机运行相应步数。move函数不会“block”程序。</span><br>      Serial.print(F(<span class="hljs-string">&quot;Motor &#x27;move&#x27;  &quot;</span>));  Serial.println(data); <br>      stepper.move(data);<br>      <span class="hljs-keyword">break</span>;<br> <br>    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;r&#x27;</span>:  <span class="hljs-comment">//利用runToNewPosition函数让电机运行到用户指定位置值。  </span><br>      Serial.print(F(<span class="hljs-string">&quot;Motor &#x27;runToNewPosition&#x27; &quot;</span>));<br>      Serial.println(data);<br>      stepper.runToNewPosition(data);<br>      <span class="hljs-keyword">break</span>;   <br>      <br>    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;s&#x27;</span>:   <span class="hljs-comment">//利用setCurrentPosition函数设置当前位置为用户指定位置值。</span><br>      Serial.print(F(<span class="hljs-string">&quot;Set stepper Current Position to &quot;</span>));<br>      Serial.println(data);<br>      stepper.setCurrentPosition(data);       <br>      <span class="hljs-keyword">break</span>;<br> <br>    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;a&#x27;</span>:  <span class="hljs-comment">//利用setAcceleration函数设置加速度 </span><br>      Serial.print(F(<span class="hljs-string">&quot;Motor &#x27;setAcceleration&#x27; &quot;</span>));<br>      Serial.println(data);<br>      stepper.setAcceleration(data);  <br>      <span class="hljs-keyword">break</span>;   <br> <br>    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;x&#x27;</span>:  <span class="hljs-comment">//利用setMaxSpeed函数设置最大速度   </span><br>      Serial.print(F(<span class="hljs-string">&quot;Motor &#x27;setMaxSpeed&#x27; &quot;</span>));<br>      Serial.println(data);<br>      stepper.setMaxSpeed(data); <br>      <span class="hljs-keyword">break</span>; <br>                     <br>    <span class="hljs-keyword">default</span>:  <span class="hljs-comment">// 未知指令</span><br>      Serial.println(F(<span class="hljs-string">&quot;Unknown Command&quot;</span>));<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-comment">// 官方库</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;Stepper.h&gt;</span></span><br><br><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> STEPS_PER_ROTOR_REV = <span class="hljs-number">32</span>;<br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> GEAR_REDUCTION = <span class="hljs-number">64</span>;<br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> STEPS_PER_REVOLUTION = STEPS_PER_ROTOR_REV * GEAR_REDUCTION;<br><br><span class="hljs-keyword">int</span> StepsRequired = <span class="hljs-number">2048</span>;<br><span class="hljs-function">Stepper <span class="hljs-title">steppermotor</span><span class="hljs-params">(STEPS_PER_ROTOR_REV, D5, D7, D6, D8)</span></span>;  <span class="hljs-comment">// IN1, IN3, IN2, IN4</span><br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setup</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>  Serial.begin(<span class="hljs-number">9600</span>);<br>  steppermotor.setSpeed(<span class="hljs-number">800</span>);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">loop</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>  StepsRequired  =  <span class="hljs-number">2048</span>;<br>  Serial.println(StepsRequired);<br>  steppermotor.step(StepsRequired);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+      </section>
+      <section class="extra">
+        
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/esp8266/" rel="tag">esp8266</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AD%A5%E8%BF%9B%E7%94%B5%E6%9C%BA/" rel="tag">步进电机</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a href="/posts/309565e3.html"><i class="iconfont iconleft"></i>ESP8266+OLED</a>
+    <a href="/posts/e8350e2f.html">ESP8266+红外接收<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "IHs6WMz89hhf0Ganevb4XYcL-gzGzoHsz",
+        app_key: "cBNSmANheKHNbjRKw1lwudsh",
+        placeholder: "来都来了, 不写点什么?",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9E%8B%E5%8F%B7"><span class="toc-text">型号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E5%8F%82%E6%95%B0"><span class="toc-text">相关参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E5%BC%95%E8%84%9A"><span class="toc-text">模块引脚</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%BA%93"><span class="toc-text">函数库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B%E7%A8%8B%E5%BA%8F"><span class="toc-text">示例程序</span></a></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="https://github.com/Jarvis-WJ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:wj446071814@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

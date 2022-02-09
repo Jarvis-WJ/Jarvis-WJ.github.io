@@ -1,0 +1,385 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>tensorflow 基本流程 - WJ&#39;s Blog</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  
+  <meta name="description" content="1. 导入各种依赖包示例:
+1234567891011...">
+  <meta name="author" content="Jarvis Wang">
+  <link rel="icon" href="/images/icons/favicon-29x29.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-58x58.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/favicon-144x144.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/favicon-58x58.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_s6x2xcokxrl.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: false,
+        alipay: '',
+        wechat: ''
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '[object Object]',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          typing: true,
+          api: 'https://v2.jinrishici.com/one.json',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'url',
+        image: '',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+
+
+  <nav class="navbar" style="">
+    <div class="left">
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+    </div>
+    <div class="center">tensorflow 基本流程</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+
+<nav class="menu">
+  <div class="menu-wrap">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 相册</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="https://camo.githubusercontent.com/c04e16c05de80dadbdc990884672fc941fdcbbfbb02b31dd48c248d010861426/68747470733a2f2f7777772e74656e736f72666c6f772e6f72672f696d616765732f74665f6c6f676f5f736f6369616c2e706e67" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">tensorflow 基本流程</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>三月 09, 2021</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>5807</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <h2 id="1-导入各种依赖包"><a href="#1-导入各种依赖包" class="headerlink" title="1. 导入各种依赖包"></a>1. 导入各种依赖包</h2><p><strong>示例:</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> os<br>os.environ[<span class="hljs-string">&quot;CUDA_VISIBLE_DEVICES&quot;</span>] = <span class="hljs-string">&quot;0&quot;</span><br><span class="hljs-keyword">from</span> pathlib <span class="hljs-keyword">import</span> Path<br><span class="hljs-keyword">import</span> sys<br>os.chdir(Path(__file__).parent)<br>sys.path.append(<span class="hljs-string">&quot;..&quot;</span>)<br><br><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf<br>gpus = tf.config.experimental.list_physical_devices(<span class="hljs-string">&quot;GPU&quot;</span>)<br><span class="hljs-keyword">for</span> gpu <span class="hljs-keyword">in</span> gpus:<br>    tf.config.experimental.set_memory_growth(gpu, <span class="hljs-literal">True</span>)<br><span class="hljs-keyword">from</span> tensorflow.keras <span class="hljs-keyword">import</span> models, layers<br></code></pre></td></tr></table></figure>
+
+<h2 id="2-创建训练数据集"><a href="#2-创建训练数据集" class="headerlink" title="2. 创建训练数据集"></a>2. 创建训练数据集</h2><h3 id="2-1-创建数据生成迭代器"><a href="#2-1-创建数据生成迭代器" class="headerlink" title="2.1 创建数据生成迭代器"></a>2.1 创建数据生成迭代器</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DataGenerator</span>():</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, *args, **kwargs</span>):</span><br>        <span class="hljs-comment"># init</span><br>        <span class="hljs-keyword">pass</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">generator</span>(<span class="hljs-params">self</span>):</span><br>        imgs = get_img()<br>        labels = get_label()<br>        <span class="hljs-keyword">for</span> img, label <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>(imgs, labels):<br>            img, label = process(img, label)<br>            <span class="hljs-keyword">yield</span> img, label<br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__call__</span>(<span class="hljs-params">self</span>):</span><br>        <span class="hljs-keyword">return</span> self.generator()<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-2-构建数据集"><a href="#2-2-构建数据集" class="headerlink" title="2.2 构建数据集"></a>2.2 构建数据集</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">dataset = tf.data.Dataset.from_generator(DataGenerator(*args, **kwargs),<br>                                        output_types=(tf.float32, tf.float32),<br>                                        output_shapes=(tf.TensorShape((H, W, C)), tf.TensorShape((H, W, C))))<br>dataset.shuffle(BUFFER_SIZE).batch(BATCH_SIZE)<br></code></pre></td></tr></table></figure>
+
+<h2 id="3-创建神经网络模型"><a href="#3-创建神经网络模型" class="headerlink" title="3. 创建神经网络模型"></a>3. 创建神经网络模型</h2><h3 id="3-1-从已保存模型加载"><a href="#3-1-从已保存模型加载" class="headerlink" title="3.1 从已保存模型加载"></a>3.1 从已保存模型加载</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">model_save = <span class="hljs-string">&quot;/path/to/model.h5&quot;</span><br>custom_objects = &#123;<span class="hljs-string">&quot;usrFunc&quot;</span>: dstFunc&#125;<br>model = tf.keras.models.load_model(model_save, custom_objects=custom_objects)<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-2-函数式模型"><a href="#3-2-函数式模型" class="headerlink" title="3.2 函数式模型"></a>3.2 函数式模型</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python">inputs = layers.Input(input_shape=(<span class="hljs-number">28</span>, <span class="hljs-number">28</span>, <span class="hljs-number">1</span>))<br>x = layers.Conv2D(<span class="hljs-number">64</span>, (<span class="hljs-number">3</span>, <span class="hljs-number">3</span>), strides=(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>), padding=<span class="hljs-string">&#x27;same&#x27;</span>, activate=<span class="hljs-string">&#x27;relu&#x27;</span>, name=<span class="hljs-string">&quot;name&quot;</span>)(x)<br>x = layers.Dense(<span class="hljs-number">128</span>, activation=<span class="hljs-string">&#x27;relu&#x27;</span>)(x)<br>x = layers.Dropout(<span class="hljs-number">0.5</span>)(x)<br>x = layers.Flatten()(x)<br>x = layers.Dense(<span class="hljs-number">10</span>, activation=<span class="hljs-string">&#x27;softmax&#x27;</span>(x)<br><br>model = models.Model(inputs=inputs, outputs=x)<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-3-序列化模型"><a href="#3-3-序列化模型" class="headerlink" title="3.3 序列化模型"></a>3.3 序列化模型</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python">model = models.Sequential([<br>    layers.Input(input_shape=(<span class="hljs-number">28</span>, <span class="hljs-number">28</span>, <span class="hljs-number">1</span>)),<br>    layers.Conv2D(<span class="hljs-number">64</span>, (<span class="hljs-number">3</span>, <span class="hljs-number">3</span>), strides=(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>), padding=<span class="hljs-string">&#x27;same&#x27;</span>, activate=<span class="hljs-string">&#x27;relu&#x27;</span>, name=<span class="hljs-string">&quot;name&quot;</span>),<br>    layers.Flatten(),<br>    layers.Dense(<span class="hljs-number">128</span>, activation=<span class="hljs-string">&#x27;relu&#x27;</span>),<br>    layers.Dropout(<span class="hljs-number">0.5</span>),<br>    layers.Dense(<span class="hljs-number">10</span>, activation=<span class="hljs-string">&#x27;softmax&#x27;</span>)<br>])<br></code></pre></td></tr></table></figure>
+
+<h3 id="3-4-子类化模型"><a href="#3-4-子类化模型" class="headerlink" title="3.4 子类化模型"></a>3.4 子类化模型</h3><p>不建议使用</p>
+<h2 id="4-神经网络训练"><a href="#4-神经网络训练" class="headerlink" title="4. 神经网络训练"></a>4. 神经网络训练</h2><h3 id="4-1-model-fit"><a href="#4-1-model-fit" class="headerlink" title="4.1 model.fit"></a>4.1 model.fit</h3><h4 id="4-1-1-模型编译"><a href="#4-1-1-模型编译" class="headerlink" title="4.1.1 模型编译"></a>4.1.1 模型编译</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 使用keras内置函数</span><br>model.<span class="hljs-built_in">compile</span>(optimizer=<span class="hljs-string">&#x27;adam&#x27;</span>,<br>              loss=<span class="hljs-string">&#x27;categorical_crossentropy&#x27;</span>,<br>              metrics=[<span class="hljs-string">&#x27;accuracy&#x27;</span>])<br><span class="hljs-comment"># 指定函数或自定义各对象</span><br>optimizer = tf.keras.optimizer.Adam()<br>loss = tf.keras.losses.CategoricalCrossentropy()<br>metrics =[tf.keras.metrics.CategoricalAccuracy()] <br>model.<span class="hljs-built_in">compile</span>(optimizer=optimizer, loss=loss, metrics=metrics)<br></code></pre></td></tr></table></figure>
+
+<h4 id="4-1-2-模型训练"><a href="#4-1-2-模型训练" class="headerlink" title="4.1.2 模型训练"></a>4.1.2 模型训练</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">model.fit(train_ds,<br>          epochs=<span class="hljs-number">5</span>,  <span class="hljs-comment"># 迭代次数</span><br>          steps_per_epoch=<span class="hljs-literal">None</span>,  <span class="hljs-comment"># 当数据集使用了dataset.repeat()时必须指定, 其他情况下指定数值表示数据仅读取对应步数</span><br>          callbacks=<span class="hljs-literal">None</span>,  <span class="hljs-comment"># 回调函数, 详见(4.1.3)</span><br>          verbose=<span class="hljs-number">1</span>)  <span class="hljs-comment"># 日志输出模式</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="4-1-3-回调函数"><a href="#4-1-3-回调函数" class="headerlink" title="4.1.3 回调函数"></a>4.1.3 回调函数</h4><p>&emsp;&emsp;定义于<code>tf.keras.callbacks</code>模块中, 用于模型训练中进行参数回调。常用的有:<code>TensorBoard</code>、<code>EarlyStopping</code>、<code>ModelCheckpoint</code>等。<br>&emsp;&emsp;用户可自定义callback类, 继承自<code>tf.keras.callbacks.Callback</code>对象, 并重写各阶段回调函数, 详细方法参考<a target="_blank" rel="noopener" href="https://tensorflow.google.cn/api_docs/python/tf/keras/callbacks/Callback">tensorflow官网</a></p>
+<h3 id="4-2-tf-GradientTape"><a href="#4-2-tf-GradientTape" class="headerlink" title="4.2 tf.GradientTape"></a>4.2 tf.GradientTape</h3><h4 id="4-2-1-定义各函数"><a href="#4-2-1-定义各函数" class="headerlink" title="4.2.1 定义各函数"></a>4.2.1 定义各函数</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">loss_object = tf.keras.losses.CategoricalCrossentropy()<br>optimizer = tf.keras.optimizer.Adam()<br>train_loss = tf.keras.metrics.Mean(name=<span class="hljs-string">&#x27;train_loss&#x27;</span>)<br>train_acc = tf.keras.metrics.CategoricalAccuracy(name=<span class="hljs-string">&#x27;train_acc&#x27;</span>)<br>traon_iou = tf.keras.metrics.MeanIoU(num_classes=<span class="hljs-number">2</span>, name=<span class="hljs-string">&#x27;train_iou&#x27;</span>)  <span class="hljs-comment"># for segmentation</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="4-2-2-定义单步训练函数"><a href="#4-2-2-定义单步训练函数" class="headerlink" title="4.2.2 定义单步训练函数"></a>4.2.2 定义单步训练函数</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">train_step</span>(<span class="hljs-params">imgs, labels</span>):</span><br>    <span class="hljs-keyword">with</span> tf.GradientTape() <span class="hljs-keyword">as</span> tape:<br>        pres = model(imgs)<br>        loss = loss_object(labels, pres)<br>    gradients = tape.gradient(loss, model.trainable_variables)<br>    optimizer.apply_gradients(<span class="hljs-built_in">zip</span>(gradients, model.trainable_variables))<br>    train_loss(loss)<br>    train_acc(labels, pres)<br>    train_iou(labels, pres)<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">test_step</span>(<span class="hljs-params">imgs, labels</span>):</span><br>    pres = model(imgs)<br>    loss = loss_object(labels, pres)<br>    test_loss(loss)<br>    test_acc(labels, pres)<br>    test_iou(labels, pres)<br></code></pre></td></tr></table></figure>
+
+<h4 id="4-2-3-训练主循环"><a href="#4-2-3-训练主循环" class="headerlink" title="4.2.3 训练主循环"></a>4.2.3 训练主循环</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> EPOCHS:<br>    train_loss.reset_states()<br>    train_acc.reset_states()<br>    train_iou.reset_states()<br>    test_loss.reset_states()<br>    test_acc.reset_states()<br>    test_iou.reset_states()<br><br>    step = <span class="hljs-number">0</span> <br>    <span class="hljs-keyword">for</span> imgs, labels <span class="hljs-keyword">in</span> train_ds:<br>        step += <span class="hljs-number">1</span><br>        train_step(imgs, labels)<br>        template = <span class="hljs-string">f&quot;epoch <span class="hljs-subst">&#123;epoch: 2d&#125;</span>, step <span class="hljs-subst">&#123;step: 4d&#125;</span>: &quot;</span> \<br>                   <span class="hljs-string">f&quot;train_loss=<span class="hljs-subst">&#123;train_loss.result(): <span class="hljs-number">.4</span>f&#125;</span> &quot;</span> \<br>                   <span class="hljs-string">f&quot;train_acc=<span class="hljs-subst">&#123;train_acc.result(): <span class="hljs-number">.4</span>f&#125;</span> &quot;</span> \<br>                   <span class="hljs-string">f&quot;train_iou=<span class="hljs-subst">&#123;train_iou.result(): <span class="hljs-number">.4</span>f&#125;</span> &quot;</span><br>        print(template)<br>    template = <span class="hljs-string">f&quot;epoch <span class="hljs-subst">&#123;epoch: 2d&#125;</span> finish: &quot;</span> \<br>               <span class="hljs-string">f&quot;train_loss=<span class="hljs-subst">&#123;train_loss.result(): <span class="hljs-number">.4</span>f&#125;</span> &quot;</span> \<br>               <span class="hljs-string">f&quot;train_acc=<span class="hljs-subst">&#123;train_acc.result(): <span class="hljs-number">.4</span>f&#125;</span> &quot;</span> \<br>               <span class="hljs-string">f&quot;train_iou=<span class="hljs-subst">&#123;train_iou.result(): <span class="hljs-number">.4</span>f&#125;</span> &quot;</span><br>    print(template)<br><br>    step = <span class="hljs-number">0</span> <br>    <span class="hljs-keyword">for</span> imgs, labels <span class="hljs-keyword">in</span> val_ds:<br>        step += <span class="hljs-number">1</span><br>        test_step(imgs, labels)<br>        template = <span class="hljs-string">f&quot;epoch <span class="hljs-subst">&#123;epoch: 2d&#125;</span>, step <span class="hljs-subst">&#123;step: 4d&#125;</span>: &quot;</span> \<br>                   <span class="hljs-string">f&quot;test_loss=<span class="hljs-subst">&#123;test_loss.result(): <span class="hljs-number">.4</span>f&#125;</span> &quot;</span> \<br>                   <span class="hljs-string">f&quot;test_acc=<span class="hljs-subst">&#123;test_acc.result(): <span class="hljs-number">.4</span>f&#125;</span> &quot;</span> \<br>                   <span class="hljs-string">f&quot;test_iou=<span class="hljs-subst">&#123;test_iou.result(): <span class="hljs-number">.4</span>f&#125;</span> &quot;</span><br>        print(template)<br>    template = <span class="hljs-string">f&quot;epoch <span class="hljs-subst">&#123;epoch: 2d&#125;</span> finish: &quot;</span> \<br>               <span class="hljs-string">f&quot;test_loss=<span class="hljs-subst">&#123;test_loss.result(): <span class="hljs-number">.4</span>f&#125;</span> &quot;</span> \<br>               <span class="hljs-string">f&quot;test_acc=<span class="hljs-subst">&#123;test_acc.result(): <span class="hljs-number">.4</span>f&#125;</span> &quot;</span> \<br>               <span class="hljs-string">f&quot;test_iou=<span class="hljs-subst">&#123;test_iou.result(): <span class="hljs-number">.4</span>f&#125;</span> &quot;</span><br>    print(template)<br></code></pre></td></tr></table></figure>
+
+<h2 id="5-神经网络模型保存"><a href="#5-神经网络模型保存" class="headerlink" title="5. 神经网络模型保存"></a>5. 神经网络模型保存</h2><p>&emsp;&emsp;模型保存有两种存储方式：HDF5类型-<code>*.h5</code> 和 TF类型-<code>*.tf</code>。可在保存时指定<code>save_format</code>选择保存类型, 若不指定则根据保存地址扩展名自动选择。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">model.save(<span class="hljs-string">&quot;/path/to/model.h5&quot;</span>)<br><span class="hljs-comment"># 仅保存训练权重</span><br>model.save_weights(<span class="hljs-string">&quot;/path/to/model_weights.h5&quot;</span>, overwrite=<span class="hljs-literal">True</span>)<br></code></pre></td></tr></table></figure>
+
+
+      </section>
+      <section class="extra">
+        
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/tensorflow/" rel="tag">tensorflow</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a href="/posts/cb310e24.html"><i class="iconfont iconleft"></i>Arduino 环境安装</a>
+    <a href="/posts/e1e2bc68.html">Docker Install<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "IHs6WMz89hhf0Ganevb4XYcL-gzGzoHsz",
+        app_key: "cBNSmANheKHNbjRKw1lwudsh",
+        placeholder: "来都来了, 不写点什么?",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%AF%BC%E5%85%A5%E5%90%84%E7%A7%8D%E4%BE%9D%E8%B5%96%E5%8C%85"><span class="toc-text">1. 导入各种依赖包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%88%9B%E5%BB%BA%E8%AE%AD%E7%BB%83%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-text">2. 创建训练数据集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E7%94%9F%E6%88%90%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="toc-text">2.1 创建数据生成迭代器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E6%9E%84%E5%BB%BA%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-text">2.2 构建数据集</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%88%9B%E5%BB%BA%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B"><span class="toc-text">3. 创建神经网络模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E4%BB%8E%E5%B7%B2%E4%BF%9D%E5%AD%98%E6%A8%A1%E5%9E%8B%E5%8A%A0%E8%BD%BD"><span class="toc-text">3.1 从已保存模型加载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E5%87%BD%E6%95%B0%E5%BC%8F%E6%A8%A1%E5%9E%8B"><span class="toc-text">3.2 函数式模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E5%BA%8F%E5%88%97%E5%8C%96%E6%A8%A1%E5%9E%8B"><span class="toc-text">3.3 序列化模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E5%AD%90%E7%B1%BB%E5%8C%96%E6%A8%A1%E5%9E%8B"><span class="toc-text">3.4 子类化模型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E8%AE%AD%E7%BB%83"><span class="toc-text">4. 神经网络训练</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-model-fit"><span class="toc-text">4.1 model.fit</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-tf-GradientTape"><span class="toc-text">4.2 tf.GradientTape</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E4%BF%9D%E5%AD%98"><span class="toc-text">5. 神经网络模型保存</span></a></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="https://github.com/Jarvis-WJ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:wj446071814@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

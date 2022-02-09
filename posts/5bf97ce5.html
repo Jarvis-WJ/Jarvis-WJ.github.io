@@ -1,0 +1,405 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>esp8266+SD卡模块 - WJ&#39;s Blog</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  
+  <meta name="description" content="型号MicroSD Card Adapter
+相关参数...">
+  <meta name="author" content="Jarvis Wang">
+  <link rel="icon" href="/images/icons/favicon-29x29.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-58x58.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/favicon-144x144.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/favicon-58x58.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_s6x2xcokxrl.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: false,
+        alipay: '',
+        wechat: ''
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '[object Object]',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          typing: true,
+          api: 'https://v2.jinrishici.com/one.json',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'url',
+        image: '',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+
+
+  <nav class="navbar" style="">
+    <div class="left">
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+    </div>
+    <div class="center">esp8266+SD卡模块</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+
+<nav class="menu">
+  <div class="menu-wrap">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 相册</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="https://www.taiwaniot.com.tw/wp-content/uploads/2016/06/51lR3Yi2-pL._SL1000_-600x600.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">esp8266+SD卡模块</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>四月 17, 2021</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1925</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <h2 id="型号"><a href="#型号" class="headerlink" title="型号"></a>型号</h2><p>MicroSD Card Adapter</p>
+<h2 id="相关参数"><a href="#相关参数" class="headerlink" title="相关参数"></a>相关参数</h2><ol>
+<li>工作电压: 供电4.5 - 5.5 V; 板载3.3 V 稳压电路, 接口电平3.3或5 V</li>
+<li>支持Micro SD、Micro SDHC卡</li>
+<li>通信接口为标准SPI接口</li>
+</ol>
+<h2 id="模块引脚"><a href="#模块引脚" class="headerlink" title="模块引脚"></a>模块引脚</h2><table>
+<thead>
+<tr>
+<th>引脚标识</th>
+<th>连接位置</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>VCC</td>
+<td>VCC</td>
+<td>4.5 - 5 V</td>
+</tr>
+<tr>
+<td>GND</td>
+<td>GND</td>
+<td></td>
+</tr>
+<tr>
+<td>MOSI</td>
+<td>SPI</td>
+<td>S1</td>
+</tr>
+<tr>
+<td>MISO</td>
+<td>SPI</td>
+<td>S0</td>
+</tr>
+<tr>
+<td>SCK</td>
+<td>SPI</td>
+<td>SK</td>
+</tr>
+<tr>
+<td>CS</td>
+<td>IO</td>
+<td>SC,需连接开发板默认SS引脚, 或指定CS引脚并设置引脚模式为输出模式</td>
+</tr>
+</tbody></table>
+<h2 id="函数库"><a href="#函数库" class="headerlink" title="函数库"></a>函数库</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;SPI.h&gt;</span></span><br><span class="hljs-comment">// 通过库管理器安装</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;SD.h&gt;</span></span><br><br>--SD库<br>  --SD类<br>    --begin(&lt;cspin&gt;)  <span class="hljs-comment">// 初始化函数, 可自定义CS引脚; &lt;setup&gt;</span><br>      -&gt; <span class="hljs-keyword">bool</span>: T成功, F失败<br>    --exists(filename)  <span class="hljs-comment">// 文件是否存在</span><br>      -&gt; <span class="hljs-keyword">bool</span>: T存在, F不存在<br>    --mkdir(dirname)  <span class="hljs-comment">// 创建目录(递归创建)</span><br>      -&gt; <span class="hljs-keyword">bool</span>: T成功, F失败<br>    --open(filename, &lt;mode&gt;)  <span class="hljs-comment">// 打开指定路径或文件</span><br>      -- mode: &lt;FILE_READ&gt;, FILE_WRITE<br>      -&gt; File; False<br>    --remove(filename)  <span class="hljs-comment">// 删除文件</span><br>      -&gt; <span class="hljs-keyword">bool</span>: T成功, F失败, unspecified文件不存在<br>    --rmdir(dirname)  <span class="hljs-comment">// 删除指定空文件夹</span><br>      -&gt; <span class="hljs-keyword">bool</span>: T成功, F失败, unspecified文件不存在<br>  --File myFile<br>    --name()  <span class="hljs-comment">// 返回对象文件名</span><br>      -&gt; <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>*:文件名<br>    --available()  <span class="hljs-comment">// 返回等待读取的数据字节数</span><br>      -&gt; <span class="hljs-keyword">int</span>:字节数<br>    --flush()  <span class="hljs-comment">// 确保写入文件所有字节都物理保存到SD卡</span><br>      -&gt; <span class="hljs-keyword">void</span><br>    --peek()  <span class="hljs-comment">// 读取一个字节的数据</span><br>      -&gt; 数据流中第一个字符; 或<span class="hljs-number">-1</span>(未接收到数据)<br>    --read(&lt;buf&gt;, &lt;len&gt;)  <span class="hljs-comment">// 从文件中读取一个字节数据</span><br>      -&gt; 读取到的数据流中第一个字符; 或<span class="hljs-number">-1</span>(没有数据)<br>    --write(val; str; buf, len)  <span class="hljs-comment">// 将数据写入文件</span><br>      -&gt; 发送的字节数<br>    --size()  <span class="hljs-comment">// 获取文件大小</span><br>      -&gt; <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span>:文件大小<br>    --seek(pos)  <span class="hljs-comment">// 在文件中寻找新位置</span><br>      -&gt; <span class="hljs-keyword">bool</span>: T成功, F失败<br>    --print(val, &lt;format&gt;)  <span class="hljs-comment">// 写入数据</span><br>      -- format: &lt;<span class="hljs-number">2</span>&gt;, BIN, OCT, DEC, HEX, <span class="hljs-keyword">int</span>(保留小数)<br>      -&gt; <span class="hljs-keyword">long</span>: 发送的字节数<br>    --println(val, &lt;format&gt;)  <span class="hljs-comment">// 写入数据(自动换行)</span><br>    --position()  <span class="hljs-comment">// 获取指针在当前文件中的位置</span><br>      -&gt; <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span>: 指针位置<br>    --close()  <span class="hljs-comment">// 关闭当前文件</span><br>      -&gt; <span class="hljs-keyword">void</span><br>    --isDirectory()   <span class="hljs-comment">// 判断文件是否为目录</span><br>      -&gt; <span class="hljs-keyword">bool</span>: T是, F否<br>    --openNextFile()  <span class="hljs-comment">// 获取当前目录下的下一个文件或文件夹</span><br>      -&gt; File: 下一个文件或文件夹对象<br>    --rewindDirectory() <span class="hljs-comment">// 返回到目录中的第一个文件</span><br>      -&gt; <span class="hljs-keyword">void</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="示例程序"><a href="#示例程序" class="headerlink" title="示例程序"></a>示例程序</h2><p>官方示例: <code>文件 - 示例 - SD(esp8266) - [Datalogger, DumpFile, FIles, listfiles, ReadWrite]</code></p>
+
+      </section>
+      <section class="extra">
+        
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/SD%E5%8D%A1%E6%A8%A1%E5%9D%97/" rel="tag">SD卡模块</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/esp8266/" rel="tag">esp8266</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a href="/posts/3e995df0.html"><i class="iconfont iconleft"></i>OpenCV Install</a>
+    <a href="/posts/de83ec7b.html">ESP8266+HC-SR04超声波测距模块<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "IHs6WMz89hhf0Ganevb4XYcL-gzGzoHsz",
+        app_key: "cBNSmANheKHNbjRKw1lwudsh",
+        placeholder: "来都来了, 不写点什么?",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9E%8B%E5%8F%B7"><span class="toc-text">型号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E5%8F%82%E6%95%B0"><span class="toc-text">相关参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E5%BC%95%E8%84%9A"><span class="toc-text">模块引脚</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%BA%93"><span class="toc-text">函数库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B%E7%A8%8B%E5%BA%8F"><span class="toc-text">示例程序</span></a></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="https://github.com/Jarvis-WJ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:wj446071814@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

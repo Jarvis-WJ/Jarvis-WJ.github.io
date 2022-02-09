@@ -1,0 +1,382 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Arduino 环境安装 - WJ&#39;s Blog</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  
+  <meta name="description" content="Arduino IDE安装从官网下载并安装软件支持环境...">
+  <meta name="author" content="Jarvis Wang">
+  <link rel="icon" href="/images/icons/favicon-29x29.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-58x58.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/favicon-144x144.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/favicon-58x58.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_s6x2xcokxrl.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: false,
+        alipay: '',
+        wechat: ''
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '[object Object]',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          typing: true,
+          api: 'https://v2.jinrishici.com/one.json',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'url',
+        image: '',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+
+
+  <nav class="navbar" style="">
+    <div class="left">
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+    </div>
+    <div class="center">Arduino 环境安装</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+
+<nav class="menu">
+  <div class="menu-wrap">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 相册</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="https://hackster.imgix.net/uploads/attachments/229108/ArduinoWebEditorPH-07.png?auto=compress,format&w=900&h=675&fit=min" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">Arduino 环境安装</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>三月 27, 2021</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>540</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <h2 id="Arduino-IDE安装"><a href="#Arduino-IDE安装" class="headerlink" title="Arduino IDE安装"></a>Arduino IDE安装</h2><p>从<a target="_blank" rel="noopener" href="https://www.arduino.cc/en/software">官网</a>下载并安装软件<br>支持环境:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://downloads.arduino.cc/arduino-nightly-windows.zip">Windows</a></li>
+<li><a target="_blank" rel="noopener" href="https://downloads.arduino.cc/arduino-nightly-macosx.zip">Mac OS X</a></li>
+<li>Linux:<ul>
+<li><a target="_blank" rel="noopener" href="https://downloads.arduino.cc/arduino-nightly-linux32.tar.xz">32 bits</a></li>
+<li><a target="_blank" rel="noopener" href="https://downloads.arduino.cc/arduino-nightly-linux64.tar.xz">64 bits</a></li>
+<li><a target="_blank" rel="noopener" href="https://downloads.arduino.cc/arduino-nightly-linuxarm.tar.xz">ARM</a></li>
+<li><a target="_blank" rel="noopener" href="https://downloads.arduino.cc/arduino-nightly-linuxaarch64.tar.xz">ARM 64</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="ESP8266开发环境配置"><a href="#ESP8266开发环境配置" class="headerlink" title="ESP8266开发环境配置"></a>ESP8266开发环境配置</h2><h3 id="1-添加包索引网址"><a href="#1-添加包索引网址" class="headerlink" title="1. 添加包索引网址"></a>1. 添加包索引网址</h3><p><code>文件-首选项-设置-附加开发板管理器网址</code>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">https://arduino.esp8266.com/stable/package_esp8266com_index.json<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-安装ESP8266开发板组件库"><a href="#2-安装ESP8266开发板组件库" class="headerlink" title="2. 安装ESP8266开发板组件库"></a>2. 安装ESP8266开发板组件库</h3><p><code>工具-开发板-开发板管理器</code>:<br>&emsp;&emsp;搜索<code>esp8266</code>并安装最新版本</p>
+<h3 id="3-选择开发板型号"><a href="#3-选择开发板型号" class="headerlink" title="3. 选择开发板型号"></a>3. 选择开发板型号</h3><p><code>工具-开发板-ESP8266 Boards</code>:<br>&emsp;&emsp;选择合适的型号(如:NodeMCU 1.0)</p>
+<h3 id="4-附加库安装"><a href="#4-附加库安装" class="headerlink" title="4. 附加库安装"></a>4. 附加库安装</h3><ul>
+<li>从GitHub等相关位置获取开发板附加库<ul>
+<li>将文件解压存放在项目文件夹对应位置(可在<code>文件-首选项-项目文件夹位置</code>查看目标位置, 默认值为<code>用户文档-Arduino文件夹</code>)</li>
+<li><code>项目-加载库-添加.ZIP库</code>位置直接从压缩文件安装附加库</li>
+</ul>
+</li>
+<li>从<code>项目-加载库-管理库</code>位置搜索并安装第三方库</li>
+</ul>
+<h2 id="环境验证"><a href="#环境验证" class="headerlink" title="环境验证"></a>环境验证</h2><p>&emsp;&emsp;<code>文件-示例-ESP8266-Blink</code>打开示例程序, 编译并上传至开发板, 观察板载LED灯闪烁效果。</p>
+
+      </section>
+      <section class="extra">
+        
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Arduino/" rel="tag">Arduino</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/esp8266/" rel="tag">esp8266</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" rel="tag">开发环境</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a href="/posts/e8350e2f.html"><i class="iconfont iconleft"></i>ESP8266+红外接收</a>
+    <a href="/posts/66c03574.html">tensorflow 基本流程<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "IHs6WMz89hhf0Ganevb4XYcL-gzGzoHsz",
+        app_key: "cBNSmANheKHNbjRKw1lwudsh",
+        placeholder: "来都来了, 不写点什么?",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Arduino-IDE%E5%AE%89%E8%A3%85"><span class="toc-text">Arduino IDE安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ESP8266%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-text">ESP8266开发环境配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%B7%BB%E5%8A%A0%E5%8C%85%E7%B4%A2%E5%BC%95%E7%BD%91%E5%9D%80"><span class="toc-text">1. 添加包索引网址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AE%89%E8%A3%85ESP8266%E5%BC%80%E5%8F%91%E6%9D%BF%E7%BB%84%E4%BB%B6%E5%BA%93"><span class="toc-text">2. 安装ESP8266开发板组件库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%80%89%E6%8B%A9%E5%BC%80%E5%8F%91%E6%9D%BF%E5%9E%8B%E5%8F%B7"><span class="toc-text">3. 选择开发板型号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E9%99%84%E5%8A%A0%E5%BA%93%E5%AE%89%E8%A3%85"><span class="toc-text">4. 附加库安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E9%AA%8C%E8%AF%81"><span class="toc-text">环境验证</span></a></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="https://github.com/Jarvis-WJ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:wj446071814@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>

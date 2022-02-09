@@ -1,0 +1,436 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" color-mode=light>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ESP8266+OLED - WJ&#39;s Blog</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="google" content="notranslate" />
+  
+  <meta name="description" content="型号MD096 OLED 12864 0.96寸显示屏...">
+  <meta name="author" content="Jarvis Wang">
+  <link rel="icon" href="/images/icons/favicon-29x29.png" type="image/png" sizes="16x16">
+  <link rel="icon" href="/images/icons/favicon-58x58.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/images/icons/favicon-144x144.png" sizes="180x180">
+  <meta rel="mask-icon" href="/images/icons/favicon-58x58.svg" color="#333333">
+  
+    <meta rel="msapplication-TileImage" content="/images/icons/favicon-144x144.png">
+    <meta rel="msapplication-TileColor" content="#000000">
+  
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+
+  
+    
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1445822_s6x2xcokxrl.css">
+
+  
+
+  
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+
+  
+
+  
+    
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/xcode.min.css" name="highlight-style" mode="light">
+
+      
+        
+        
+<link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.18.1/styles/solarized-dark.min.css" name="highlight-style" mode="dark">
+
+      
+  
+
+  <script>
+    var CONFIG = window.CONFIG || {};
+    var ZHAOO = window.ZHAOO || {};
+    CONFIG = {
+      isHome: false,
+      fancybox: true,
+      pjax: false,
+      lazyload: {
+        enable: true,
+        only_post: 'false',
+        loading: '/images/theme/loading.gif'
+      },
+      donate: {
+        enable: false,
+        alipay: '',
+        wechat: ''
+      },
+      galleries: {
+        enable: true
+      },
+      fab: {
+        enable: true,
+        always_show: false
+      },
+      carrier: {
+        enable: true
+      },
+      daovoice: {
+        enable: false
+      },
+      preview: {
+        background: {
+          default: '[object Object]',
+          api: ''
+        },
+        motto: {
+          default: '我在开了灯的床头下，想问问自己的心啊。',
+          typing: true,
+          api: 'https://v2.jinrishici.com/one.json',
+          data_contents: '["data","content"]'
+        },
+      },
+      qrcode: {
+        enable: true,
+        type: 'url',
+        image: '',
+      },
+      toc: {
+        enable: true
+      },
+      scrollbar: {
+        type: 'default'
+      },
+      notification: {
+        enable: false,
+        delay: 4500,
+        list: '',
+        page_white_list: '',
+        page_black_list: ''
+      }
+    }
+  </script>
+
+  
+
+  
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body class="lock-screen">
+  <div class="loading"></div>
+  
+
+
+  <nav class="navbar" style="">
+    <div class="left">
+      
+        <i class="iconfont iconqrcode j-navbar-qrcode"></i>
+      
+      
+        <i class="iconfont iconmoono" id="color-toggle" color-toggle="light"></i>
+      
+    </div>
+    <div class="center">ESP8266+OLED</div>
+    <div class="right">
+      <i class="iconfont iconmenu j-navbar-menu"></i>
+    </div>
+    
+      <div id="qrcode-navbar"></div>
+    
+  </nav>
+
+  
+
+<nav class="menu">
+  <div class="menu-wrap">
+    <div class="menu-close">
+      <i class="iconfont iconbaseline-close-px"></i>
+    </div>
+    <ul class="menu-content"><li class="menu-item">
+        <a href="/ " class="underline "> 首页</a>
+      </li><li class="menu-item">
+        <a href="/galleries/ " class="underline "> 相册</a>
+      </li><li class="menu-item">
+        <a href="/archives/ " class="underline "> 归档</a>
+      </li><li class="menu-item">
+        <a href="/tags/ " class="underline "> 标签</a>
+      </li><li class="menu-item">
+        <a href="/categories/ " class="underline "> 分类</a>
+      </li><li class="menu-item">
+        <a href="/about/ " class="underline "> 关于</a>
+      </li></ul>
+    
+      <div class="menu-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+    
+  </div>
+</nav>
+  <main id="main">
+  <div class="article-wrap">
+    <div class="row container">
+      <div class="col-xl-3"></div>
+      <div class="col-xl-6"><article class="article">
+  <div class="wrap">
+    <section class="head">
+  <img   class="lazyload" data-original="https://www.waveshare.net/photo/LCD/0.96inch-OLED-A/0.96inch-OLED-A-5.jpg" src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="  draggable="false">
+  <div class="head-mask">
+    <h1 class="head-title">ESP8266+OLED</h1>
+    <div class="head-info">
+      <span class="post-info-item"><i class="iconfont iconcalendar"></i>四月 11, 2021</span>
+      
+      <span class="post-info-item"><i class="iconfont iconfont-size"></i>1657</span>
+    </div>
+  </div>
+</section>
+    <section class="main">
+      <section class="content">
+        <h2 id="型号"><a href="#型号" class="headerlink" title="型号"></a>型号</h2><p>MD096 OLED 12864 0.96寸显示屏</p>
+<h2 id="相关参数"><a href="#相关参数" class="headerlink" title="相关参数"></a>相关参数</h2><ol>
+<li>工作电压: 3 - 5 V</li>
+<li>工作温度: -40 - 70 ℃</li>
+<li>分 辨 率：128 x 64</li>
+<li>屏幕尺寸: 26.70mm x 19.27mm x 1.65mm</li>
+<li>模块尺寸: 27.30mm x 27.80mm x 3.65mm</li>
+<li>可视角度: &gt; 160°</li>
+<li>驱动芯片: SSD1306</li>
+</ol>
+<h2 id="模块引脚"><a href="#模块引脚" class="headerlink" title="模块引脚"></a>模块引脚</h2><blockquote>
+<p>SPI与IIC硬件设置通过电阻焊接确定，详见OLED板后丝印</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>引脚标识</th>
+<th>连接位置</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GND</td>
+<td>GND</td>
+<td></td>
+</tr>
+<tr>
+<td>VCC</td>
+<td>VCC</td>
+<td>3 - 5 V</td>
+</tr>
+<tr>
+<td>D0</td>
+<td>时钟线</td>
+<td>SPI与IIC同</td>
+</tr>
+<tr>
+<td>D1</td>
+<td>数据线</td>
+<td>SPI与IIC同</td>
+</tr>
+<tr>
+<td>RES</td>
+<td>复位线</td>
+<td>OLED上电后需进行一次复位</td>
+</tr>
+<tr>
+<td>DC</td>
+<td>SPI数据/命令选择引脚</td>
+<td>IC接口用来设置IIC地址</td>
+</tr>
+<tr>
+<td>CS</td>
+<td>SPI片选</td>
+<td>低电平有效，如不用必须接地</td>
+</tr>
+</tbody></table>
+<h2 id="函数库"><a href="#函数库" class="headerlink" title="函数库"></a>函数库</h2><h3 id="1-通用函数"><a href="#1-通用函数" class="headerlink" title="1. 通用函数"></a>1. 通用函数</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;Arduino.h&gt;</span></span><br><span class="hljs-comment">// 安装方式: 从Arduino IDE中直接搜索u8g2安装</span><br><span class="hljs-comment">// 参    考: https://github.com/olikraus/u8g2</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;U8g2lib.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;SPI.h&gt;  // SPI通信</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;Wire.h&gt;  // IIC通信</span></span><br><br>--U8g2lib库<br>  --<span class="hljs-function">U8G2_SSD1306_128X64_NONAME_1_4W_SW_SPI <span class="hljs-title">u8g2</span><span class="hljs-params">(rotation, clock, data, cs, dc [, reset])</span></span><br>    --setFontMode(1);  // 激活透明字符模式<br>    --setFontDirection(<span class="hljs-number">0</span>);  <span class="hljs-comment">// 设置书写方向[0=&gt;L2R; 1=&gt;T2D; 2=&gt;R2L; 3=&gt;D2T]</span><br>    --setFont(u8g2_font_inab16_mf);  <span class="hljs-comment">// 设置字体[参考: https://github.com/olikraus/u8g2/wiki/fntlistall]</span><br>    --drawStr(x, y, str);  <span class="hljs-comment">// 字符串[x, y] =&gt; 文字左下角</span><br>    --drawHLine(x, y, w);  <span class="hljs-comment">// 画横线[x, y, w=&gt;线长]</span><br>    --drawVLine(x, y, h);  <span class="hljs-comment">// 画竖线[x, y, h=&gt;线长]</span><br>    --drawLine(x0, y0, x1, y1);  <span class="hljs-comment">// 画线</span><br><br><span class="hljs-comment">// 辅助函数</span><br><span class="hljs-built_in">strcpy</span>(str, u8g2_u8toa(num, <span class="hljs-number">2</span>));  <span class="hljs-comment">// 数字转字符串, 并保留两位小数</span><br><br><span class="hljs-comment">// 显示方法</span><br><span class="hljs-comment">// 1.</span><br>u8g2.clearBuffer();<br>drawFunc();<br>u8g2.sendBuffer();<br>delay(<span class="hljs-number">1000</span>);<br><span class="hljs-comment">// 2.</span><br>u8g2.firstPage();<br><span class="hljs-keyword">do</span> &#123;<br>  drawFunc();<br>&#125; <span class="hljs-keyword">while</span> ( u8g2.nextPage() ):<br>delay(<span class="hljs-number">1000</span>);<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-显示中文"><a href="#2-显示中文" class="headerlink" title="2. 显示中文"></a>2. 显示中文</h3><ol>
+<li>取模软件: PCtoLCD</li>
+</ol>
+<blockquote>
+<ol>
+<li>模式: 字符模式</li>
+<li>工具栏: 字体、字宽、字高、修改点阵大小</li>
+<li>选项: 点阵格式-阴码; 取模方式-逐行; 取模走向-顺向; 输出数制-十六; 自定义格式-C51; 数据前缀-0x; 数据后缀-,; 行前缀-[空白]; 行后缀-,;</li>
+<li>生成字模 =&gt; <code>text.h</code></li>
+</ol>
+</blockquote>
+<ol start="2">
+<li>显示</li>
+</ol>
+<blockquote>
+<ol>
+<li>头文件: <code>#include &quot;text.h&quot;</code></li>
+<li>绘制: <code>u8g2.drawXBM(x, y, w, h, bitmap)</code></li>
+</ol>
+</blockquote>
+<h2 id="示例程序"><a href="#示例程序" class="headerlink" title="示例程序"></a>示例程序</h2><p>官方示例程序, 推荐<code>文件-&gt;示例-&gt;U8g2-&gt;full_buffer-&gt;U8g2Logo</code></p>
+
+      </section>
+      <section class="extra">
+        
+        
+        
+  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/OLED%E6%98%BE%E7%A4%BA%E5%B1%8F/" rel="tag">OLED显示屏</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/esp8266/" rel="tag">esp8266</a></li></ul> 
+
+        
+  <nav class="nav">
+    <a href="/posts/bfe9f563.html"><i class="iconfont iconleft"></i>ESP8266+温湿度传感器</a>
+    <a href="/posts/d7b2eea1.html">ESP8266+步进电机<i class="iconfont iconright"></i></a>
+  </nav>
+
+      </section>
+      
+        <section class="comments">
+  
+    <div class="btn" id="comments-btn">查看评论</div>
+  
+  
+<div id="valine"></div>
+<script defer src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+  window.onload = function () {
+    var loadValine = function () {
+      new Valine({
+        el: '#valine',
+        app_id: "IHs6WMz89hhf0Ganevb4XYcL-gzGzoHsz",
+        app_key: "cBNSmANheKHNbjRKw1lwudsh",
+        placeholder: "来都来了, 不写点什么?",
+        avatar: "mp",
+        pageSize: "10",
+        lang: "zh-CN",
+      });
+    }
+    if ( true ) {
+      $("#comments-btn").on("click", function () {
+        $(this).hide();
+        loadValine();
+      });
+    } else {
+      loadValine();
+    }
+  };
+</script>
+
+</section>
+      
+    </section>
+  </div>
+</article></div>
+      <div class="col-xl-3">
+        
+          
+  <aside class="toc-wrap">
+    <h3 class="toc-title">文章目录：</h3>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9E%8B%E5%8F%B7"><span class="toc-text">型号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E5%8F%82%E6%95%B0"><span class="toc-text">相关参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E5%BC%95%E8%84%9A"><span class="toc-text">模块引脚</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%BA%93"><span class="toc-text">函数库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%80%9A%E7%94%A8%E5%87%BD%E6%95%B0"><span class="toc-text">1. 通用函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E6%98%BE%E7%A4%BA%E4%B8%AD%E6%96%87"><span class="toc-text">2. 显示中文</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B%E7%A8%8B%E5%BA%8F"><span class="toc-text">示例程序</span></a></li></ol>
+  </aside>
+
+        
+      </div>
+    </div>
+  </div>
+</main>
+  
+
+<footer class="footer">
+  <div class="footer-social"><a 
+        href="https://github.com/Jarvis-WJ "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color= '#9f7be1'" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  icongithub-fill "></i>
+      </a><a 
+        href="mailto:wj446071814@163.com "
+        target="_blank"
+        class="footer-social-item"
+        onMouseOver="this.style.color=#FF3B00" 
+        onMouseOut="this.style.color='#33333D'">
+          <i class="iconfont  iconmail"></i>
+      </a></div>
+  
+    <div class="footer-copyright"><p>Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme - <a target="_blank" href="https://github.com/izhaoo/hexo-theme-zhaoo">zhaoo</a></p></div>
+  
+</footer>
+  
+      <div class="fab fab-plus">
+    <i class="iconfont iconplus"></i>
+  </div>
+  
+  
+  <div class="fab fab-up">
+    <i class="iconfont iconcaret-up"></i>
+  </div>
+  
+  
+  
+    
+<script src="/js/color-mode.js"></script>
+
+  
+</body>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+
+
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+
+
+
+
+
+
+  
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script>
+<script src="/js/script.js"></script>
+
+
+
+
+
+
+
+  <script>
+    (function () {
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+      } else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      }
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
